@@ -39,7 +39,7 @@ public class DemoApplication {
 		Flux<String> c = Flux.combineLatest(a, b, (a1,b1)->a1+"."+b1)
 			.log("b+a");
 		
-		//Disposable cDisposable = c.subscribe();
+		//c.subscribe(); //does not resolve issue
 
 		Flux<String> d = Flux.interval(Duration.ofSeconds(1))
 			.filter(i->i==0)
