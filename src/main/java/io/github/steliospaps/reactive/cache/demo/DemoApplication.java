@@ -9,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import reactor.core.Disposable;
+import reactor.core.publisher.BufferOverflowStrategy;
 import reactor.core.publisher.EmitterProcessor;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
@@ -26,6 +27,7 @@ public class DemoApplication {
 		Flux<Long> a = Flux.interval(Duration.ofSeconds(1))
 			.takeUntilOther(completerMono)
 			.onBackpressureDrop(i->log.info("a dropping {}",i))
+			.flatMap(i->Mono.just(i))
 			.log("a")
 			.cache(1)
 			;
